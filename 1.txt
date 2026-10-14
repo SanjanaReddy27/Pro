@@ -1,0 +1,99 @@
+create a repo
+git clone https://github.com/SanjanaReddy27/Reponame.git
+cd Reponame
+git add .
+git commit -m "COMMIT"
+git push 
+
+
+<html>
+<body>
+<h1>Student Management</h1>
+ID: <input id="id" placeholder="ID">
+<br><br>
+Name: <input id="name" placeholder="Name">
+<br><br>
+Age: <input id="age" placeholder="Age">
+<br><br>
+<button onClick="save()">Save</button>
+
+
+
+<script type="module">
+import {initializeApp} from https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js
+import {getDatabase,ref,set} from https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js
+let app=initializeApp({
+apiKey:"AIzaSyCDQyk2iwg9RH6tD6Sazq-1yRqbCzjAj40",
+databaseURL:"https://student-adaea-default-rtdb.firebaseio.com",
+projectId:"student-adaea"
+});
+let db=getDatabase(app);
+window.save=async()=>
+{
+ let id=document.getElementById("id").value;
+ let name=document.getElementById("name").value;
+ let age=document.getElementById("age").value;
+ await set(ref(db,"students/"+id),
+{name,age});
+alert("Saved");
+};
+</script>
+</body>
+</html> 
+
+
+
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let students = [];
+
+app.get('/students', (req, res) => {
+    res.json(students);
+});
+
+app.post('/students', (req, res) => {
+    students.push(req.body);
+    res.send("Student Added");
+});
+
+app.listen(3000, () => {
+    console.log("Server Started");
+});
+
+
+
+
+
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let students = [];
+
+// Create
+app.post('/add', (req, res) => {
+    students.push(req.body);
+    res.send("Added");
+});
+
+// Read
+app.get('/view', (req, res) => {
+    res.json(students);
+});
+
+// Update
+app.put('/update', (req, res) => {
+    students[0] = req.body;
+    res.send("Updated");
+});
+
+// Delete
+app.delete('/delete', (req, res) => {
+    students.pop();
+    res.send("Deleted");
+});
+
+app.listen(3000);
